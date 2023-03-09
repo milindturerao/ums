@@ -1,0 +1,141 @@
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-lg-9 col-xl-7">
+          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+            <div class="card-body p-4 p-md-5">
+              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+              <form [formGroup]="registration" (ngSubmit)="save()">
+  
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+  
+                    <div class="form-outline">
+                      <input type="text" formControlName="fname" id="firstName" class="form-control form-control-lg" />
+                      <label class="form-label" for="firstName">First Name</label>
+                    </div>
+                    <div class="">
+                      <span *ngIf="fname && fname.invalid && fname.touched" class="text-danger">invalid lastName</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+  
+                    <div class="form-outline">
+                      <input type="text" formControlName="lname" id="lastName" class="form-control form-control-lg" />
+                      <label class="form-label" for="lastName">Last Name</label>
+                    </div>
+                    <div class="">
+                      <span *ngIf="lname && lname.invalid && lname.touched" class="text-danger">invalid lastName</span>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-6 mb-4 d-flex align-items-center">
+  
+                    <div class="form-outline datepicker w-100">
+                      <input type="date" formControlName="dob" class="form-control form-control-lg" id="birthdayDate" />
+                      <label for="birthdayDate" class="form-label">Birthday</label>
+                    </div>
+                    <div class="">
+                      <span *ngIf="dob && dob.invalid && dob.touched" class="text-danger">invalid lastName</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+  
+                    <h6 class="mb-2 pb-1">Gender: </h6>
+  
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" formControlName="gender" type="radio" name="gender" id="femaleGender"
+                        value="Female" checked />
+                      <label class="form-check-label" for="femaleGender">Female</label>
+                    </div>
+  
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" formControlName="gender" type="radio" name="gender" id="maleGender"
+                        value="Male" />
+                      <label class="form-check-label" for="maleGender">Male</label>
+                    </div>
+  
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" formControlName="gender" type="radio" name="gender" id="otherGender"
+                        value="Other" />
+                      <label class="form-check-label" for="otherGender">Other</label>
+                    </div>
+                    <div class="">
+                      <span *ngIf="gender && gender.invalid && gender.touched" class="text-danger">invalid lastName</span>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-6 mb-4 pb-2">
+  
+                    <div class="form-outline">
+                      <input type="email" formControlName="email" (blur)="emailcheck($any($event.target).value)" id="emailAddress" class="form-control form-control-lg" />
+                      <label class="form-label" for="emailAddress">{{emailc}} Email</label>
+                    </div>
+                    <div class="">
+                      <span *ngIf="email && email.invalid && email.touched" class="text-danger">invalid lastName </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4 pb-2">
+  
+                    <div class="form-outline">
+                      <input type="tel" formControlName="phno" id="phoneNumber" class="form-control form-control-lg" />
+                      <label class="form-label" for="phoneNumber">Phone Number</label>
+                    </div>
+                    <div class="">
+                      <span *ngIf="phno && phno.invalid && phno.touched" class="text-danger">invalid lastName</span>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-4">
+  
+                    <select class="select form-select" (change)="getStatesByCountryid($any($event.target).value)" name="countryId" formControlName="countryId">
+                      <option  disabled>countryId option</option>
+                      <option *ngFor="let country of countries|keyvalue" [value]="country.key" >  {{ country.value }} </option>
+                    </select>
+                    <label class="form-label select-label">countryId option</label>
+                    <div class="">
+                      <span *ngIf="countryId && countryId.invalid && countryId.touched" class="text-danger">invalid lastName</span>
+                    </div>
+                  </div>
+
+                  <div class="col-4">
+  
+                    <select class="select form-select" (change)="getCitysByStateid($any($event.target).value)" formControlName="stateId">
+                      <option value="1" disabled>stateId option</option>         
+                      <option *ngFor="let state of states|keyvalue" [value]="state.key" >  {{ state.value }} </option> 
+                    </select>
+                    <label class="form-label select-label">stateId option</label>
+                    <div class="">
+                      <span *ngIf="stateId && stateId.invalid && stateId.touched" class="text-danger">invalid lastName</span>
+                    </div>
+                  </div>
+                  <div class="col-4">
+  
+                    <select class="select form-select" formControlName="cityId">
+                      <option value="1" disabled>cityId option</option>
+                      <option *ngFor="let city of citys|keyvalue" [value]="city.key" >  {{ city.value }} </option>
+                    </select>
+                    <label class="form-label select-label">cityId option</label>
+                    <div class="">
+                      <span *ngIf="cityId && cityId.invalid && cityId.touched" class="text-danger">invalid lastName</span>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="mt-4 pt-2">
+                  <button class="btn btn-primary btn-lg" type="submit">Submit</button>
+                </div>
+  
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
